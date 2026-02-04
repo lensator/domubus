@@ -36,7 +36,7 @@ from domubus.types import (
 )
 from domubus.watcher import FileWatcher
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "PYDANTIC_AVAILABLE",
