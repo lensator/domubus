@@ -12,7 +12,7 @@ import threading
 from collections import deque
 from collections.abc import Callable
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Union
 
 from domubus.events import BaseEvent, StringEvent
 from domubus.handlers import HandlerRegistry
@@ -21,6 +21,9 @@ from domubus.watcher import FileWatcher
 
 if TYPE_CHECKING:
     from domubus.types import ErrorCallback, EventFilter, Handler
+
+# Type alias for events that can be either BaseEvent or StringEvent
+AnyEvent = Union[BaseEvent, StringEvent]
 
 
 class EventBus:
@@ -406,6 +409,7 @@ class EventBus:
 
         # Try to deserialize to registered event type
         event_class = self._event_registry.get(event_type)
+        event: AnyEvent
         if event_class:
             try:
                 # Remove internal fields before deserializing
@@ -441,7 +445,9 @@ class EventBus:
                     # Schedule async handlers
                     try:
                         loop = asyncio.get_running_loop()
-                        loop.create_task(handler.callback(event))
+                        result = handler.callback(event)
+                        if result is not None and asyncio.iscoroutine(result):
+                            loop.create_task(result)
                     except RuntimeError:
                         pass  # No loop, skip async handler
                 else:
