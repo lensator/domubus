@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "domubus"
-version = "0.1.0"
+version = "0.1.1"
 description = "Async/sync event bus with optional Pydantic integration, persistence, and priority handlers"
 license = "MIT"
 requires-python = ">=3.10"
