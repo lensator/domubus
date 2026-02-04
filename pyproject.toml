@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "domubus"
+version = "0.1.0"
+description = "Async/sync event bus with optional Pydantic integration, persistence, and priority handlers"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [{ name = "voxDomus Team" }]
+readme = "README.md"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+    "Framework :: AsyncIO",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Home Automation",
+]
+keywords = ["event-bus", "pubsub", "async", "home-automation", "pydantic", "event-driven"]
+# ZERO required dependencies - stdlib only
+dependencies = []
+
+[project.optional-dependencies]
+pydantic = ["pydantic>=2.0"]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "pytest-cov>=4.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
+    "pydantic>=2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/lensator/domubus"
+Documentation = "https://github.com/lensator/domubus#readme"
+Repository = "https://github.com/lensator/domubus"
+Issues = "https://github.com/lensator/domubus/issues"
+
+[tool.hatch.build.targets.sdist]
+include = ["/domubus"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["domubus"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM", "RUF"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true
+
