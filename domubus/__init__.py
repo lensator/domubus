@@ -39,28 +39,28 @@ from domubus.watcher import FileWatcher
 __version__ = "0.1.0"
 
 __all__ = [
-    # Core
-    "EventBus",
+    "PYDANTIC_AVAILABLE",
+    "AsyncHandler",
     # Events
     "BaseEvent",
-    "StringEvent",
-    "PYDANTIC_AVAILABLE",
+    "BaseEventProtocol",
+    "ErrorCallback",
+    # Core
+    "EventBus",
+    "EventFilter",
+    "EventT",
+    "EventT_co",
+    # Watcher
+    "FileWatcher",
+    # Types
+    "Handler",
     # Handlers
     "HandlerEntry",
     "HandlerRegistry",
     # Persistence
     "JSONLPersistence",
-    # Watcher
-    "FileWatcher",
-    # Types
-    "Handler",
+    "StringEvent",
     "SyncHandler",
-    "AsyncHandler",
-    "ErrorCallback",
-    "EventFilter",
-    "BaseEventProtocol",
-    "EventT",
-    "EventT_co",
     # Metadata
     "__version__",
 ]

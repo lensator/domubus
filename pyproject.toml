@@ -62,7 +62,14 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM", "RUF"]
-ignore = ["E501"]
+ignore = [
+    "E501",    # line too long
+    "RUF006",  # store task reference - intentional fire-and-forget
+    "RUF012",  # mutable class attribute - intentional class-level registry
+    "SIM105",  # contextlib.suppress - explicit try/except is clearer
+    "SIM115",  # context manager for files - intentional long-lived file handle
+    "UP007",   # X | Y union - keep Union for Python 3.10 compatibility
+]
 
 [tool.mypy]
 python_version = "3.10"

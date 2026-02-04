@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-from collections.abc import Awaitable
-from typing import Any, Callable, Protocol, TypeVar, Union, runtime_checkable
-
+from collections.abc import Awaitable, Callable
+from typing import Any, Protocol, TypeVar, Union, runtime_checkable
 
 # TypeVar for event types
 EventT = TypeVar("EventT", bound="BaseEventProtocol")

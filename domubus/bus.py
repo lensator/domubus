@@ -10,11 +10,12 @@ import asyncio
 import os
 import threading
 from collections import deque
+from collections.abc import Callable
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Callable, Union
+from typing import TYPE_CHECKING, Any
 
 from domubus.events import BaseEvent, StringEvent
-from domubus.handlers import HandlerEntry, HandlerRegistry
+from domubus.handlers import HandlerRegistry
 from domubus.persistence import JSONLPersistence
 from domubus.watcher import FileWatcher
 
@@ -191,7 +192,7 @@ class EventBus:
     # Emit methods
     async def emit_async(
         self,
-        event: Union[BaseEvent, StringEvent, str],
+        event: BaseEvent | StringEvent | str,
         data: dict[str, Any] | None = None,
     ) -> None:
         """Emit an event asynchronously.
@@ -245,7 +246,7 @@ class EventBus:
 
     def emit(
         self,
-        event: Union[BaseEvent, StringEvent, str],
+        event: BaseEvent | StringEvent | str,
         data: dict[str, Any] | None = None,
     ) -> None:
         """Emit an event (sync wrapper for async emit).
@@ -267,7 +268,7 @@ class EventBus:
 
     def emit_sync(
         self,
-        event: Union[BaseEvent, StringEvent, str],
+        event: BaseEvent | StringEvent | str,
         data: dict[str, Any] | None = None,
     ) -> None:
         """Emit an event synchronously (only runs sync handlers).

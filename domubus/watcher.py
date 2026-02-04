@@ -7,12 +7,12 @@ to share events via the same JSONL persistence file.
 from __future__ import annotations
 
 import asyncio
+import contextlib
 import json
 import os
-import threading
-import time
+from collections.abc import Callable
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     pass
@@ -77,10 +77,8 @@ class FileWatcher:
         self._running = False
         if self._task:
             self._task.cancel()
-            try:
+            with contextlib.suppress(asyncio.CancelledError):
                 await self._task
-            except asyncio.CancelledError:
-                pass
             self._task = None
 
     async def _watch_loop(self) -> None:
@@ -103,7 +101,7 @@ class FileWatcher:
             return  # No new data
 
         # Read new lines
-        with open(self.file_path, "r", encoding="utf-8") as f:
+        with open(self.file_path, encoding="utf-8") as f:
             f.seek(self._position)
             new_content = f.read()
             self._position = f.tell()
